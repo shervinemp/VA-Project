@@ -1,0 +1,46 @@
+@ [ joe.exists_inv(item) &
+    joe.in_range(target) ] 
+pub { ent(Chara): joe }.give({ ent(Item): item }, { ent(Chara): target })
+-> joe.exists_inv(item)
+
+@ [ joe.pickup(item) | 
+    joe.receive(item) ] 
+pub { ent(Chara): joe }.exists_inv({ ent(Item): item })
+
+@ [ { ent(World): world }.exists_in(item) &
+    joe.in_range(item) ] 
+pub { ent(Chara): joe }.pickup({ ent(Item): item }) 
+-> joe.exists_inv(item)
+
+@ [ other.exists_inv(item) & 
+    other.wants_give(item) ] 
+pub { ent(Chara): other }.receive({ ent(Item): item }) 
+-> [ { ent(Chara): joe }.exists_inv(item) & 
+     ~other.exists_inv(item) ]
+
+@ joe.move_to(obj.x, obj.y)
+pub { ent(Chara): joe }.in_range({ ent(WorldObj): obj })
+
+@ [ joe.move_right(! joe.x_right < obj.x_left !) &
+    joe.move_left(! joe.x_left > obj.x_right !) & 
+    joe.move_down(! joe.y_bottom < obj.y_top !) &
+    joe.move_up(! joe.y_top > obj.y_bottom !) ] 
+pub { ent(Chara): joe }.move_to({ ent(WorldObj): obj }) 
+-> [ joe.x & 
+     joe.y ]
+
+@ [ joe.step_right(! joe.x < x !) &
+    joe.step_left(! joe.x > x !) & 
+    joe.step_down(! joe.y < y !) &
+    joe.step_up(! joe.y > y !) ] 
+pub { ent(Chara): joe }.move({ var(Float): x }, { var(Float): y }) 
+-> [ joe.x & 
+     joe.y ]
+
+@ joe.can_step_right(should_move_right)
+priv { ent(Chara): joe }.step_right({ var(Bool): should_move_right }) 
+-> joe.x
+
+@ joe.can_step_down(should_move_down)
+priv { ent(Chara): joe }.step_down({ var(Bool): should_move_down }) 
+-> joe.y
