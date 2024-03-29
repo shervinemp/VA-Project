@@ -1,5 +1,6 @@
 from typing import List, Dict, Optional
 from pydantic import BaseModel, validator
+from generator import RandomGenerator as DefaultGenerator
 
 class Examples(BaseModel):
     positive: List[str] = []
@@ -22,7 +23,8 @@ class Examples(BaseModel):
     def __call__(self, positive_case):
         return self.get(self, positive_case=positive_case)
 
-class TemplateItem(ABC):
+
+class TemplateItem(BaseModel):
     description: Optional[str] = None
     examples: Examples
 
@@ -32,10 +34,11 @@ class TemplateItem(ABC):
             return {'positive': v}
         return v
 
-class Intent(Template):
+
+class Intent(TemplateItem):
     pass
 
-class Variable(Template):
+class Variable(TemplateItem):
     pass
 
 class RootSchema(BaseModel):
