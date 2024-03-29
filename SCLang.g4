@@ -1,8 +1,8 @@
 // Filename: SCLang.g4
 grammar SCLang;
 
-script         	: import* definition* ;
-import		: 'import' STRING ;
+script         	: import_header* definition* ;
+import_header	: 'import' STRING ;
 
 definition    	: conditionBlock? visibility actionBlock effectBlock? metaData?;
 
