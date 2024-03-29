@@ -1,0 +1,32 @@
+variables:
+  restaurant_name:
+    examples:
+      - "The Italian Place"
+      - "Sushi House"
+      - "Downtown Diner"
+  number_of_people:
+    examples:
+      - "two"
+      - "three"
+      - "four"
+  time:
+    examples:
+      - "7 PM"
+      - "8 PM"
+      - "tonight"
+
+intents:
+  BookRestaurant:
+    description: "Used to book and make reservations at restaurants."
+    examples:
+      positive:
+        - "Book a table for {number_of_people} at {restaurant_name}"
+        - "Reserve a table for {number_of_people} people at {time}"
+      negative:
+        - "Cancel the booking for {number_of_people} at {restaurant_name}"
+
+  CheckWeather:
+    description: "Used to check weather information."
+    examples:
+      - "What's the weather like in {location}?"
+      - "Is it going to rain today?"
