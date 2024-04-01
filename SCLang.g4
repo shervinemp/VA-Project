@@ -21,8 +21,8 @@ comparison	: compareOp attrib ;
 compareOp	: '!=' | '<' | '<=' | '>' | '>=' | '==' ;
 
 entityRef	: entity | entityGroup ;
-entityGroup	: '{' entityDef ('|' logicExpr)? '}' ;
-entityDef	: entityType ':' entity ;
+entityDef	: '{' entityDecl ('|' logicExpr)? '}' ;
+entityDecl	: entityType ':' entity ;
 entityType      : entityClass | entityVar ;
 entityClass     : 'ent' '(' IDENTIFIER ')' ;
 entityVar	: 'var' '(' dataType ')' ;
