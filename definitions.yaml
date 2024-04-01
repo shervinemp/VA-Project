@@ -1,0 +1,2 @@
+variables: !include variables.yaml
+intents: !include intents.yaml

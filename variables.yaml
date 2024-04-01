@@ -1,0 +1,15 @@
+restaurant_name:
+  examples:
+    - "The Italian Place"
+    - "Sushi House"
+    - "Downtown Diner"
+number_of_people:
+  examples:
+    - "two"
+    - "three"
+    - "four"
+time:
+  examples:
+    - "7 PM"
+    - "8 PM"
+    - "tonight"

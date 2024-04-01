@@ -87,6 +87,7 @@ venv.bak/
 # Antl4r
 *.tokens
 *.interp
+*.swp
 SCLangParser.py
 SCLangLexer.py
 SCLangListener.py

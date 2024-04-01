@@ -69,13 +69,8 @@ class SCLangVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by SCLangParser#liveTerm.
-    def visitLiveTerm(self, ctx:SCLangParser.LiveTermContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by SCLangParser#modifier.
-    def visitModifier(self, ctx:SCLangParser.ModifierContext):
+    # Visit a parse tree produced by SCLangParser#logicMod.
+    def visitLogicMod(self, ctx:SCLangParser.LogicModContext):
         return self.visitChildren(ctx)
 
 
@@ -114,13 +109,8 @@ class SCLangVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by SCLangParser#entityVariable.
-    def visitEntityVariable(self, ctx:SCLangParser.EntityVariableContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by SCLangParser#entityConstant.
-    def visitEntityConstant(self, ctx:SCLangParser.EntityConstantContext):
+    # Visit a parse tree produced by SCLangParser#entityVar.
+    def visitEntityVar(self, ctx:SCLangParser.EntityVarContext):
         return self.visitChildren(ctx)
 
 
@@ -136,6 +126,11 @@ class SCLangVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by SCLangParser#methodCall.
     def visitMethodCall(self, ctx:SCLangParser.MethodCallContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by SCLangParser#attribMod.
+    def visitAttribMod(self, ctx:SCLangParser.AttribModContext):
         return self.visitChildren(ctx)
 
 
@@ -166,6 +161,21 @@ class SCLangVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by SCLangParser#value.
     def visitValue(self, ctx:SCLangParser.ValueContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by SCLangParser#number.
+    def visitNumber(self, ctx:SCLangParser.NumberContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by SCLangParser#string.
+    def visitString(self, ctx:SCLangParser.StringContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by SCLangParser#bool.
+    def visitBool(self, ctx:SCLangParser.BoolContext):
         return self.visitChildren(ctx)
 
 

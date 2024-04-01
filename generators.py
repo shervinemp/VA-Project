@@ -1,7 +1,7 @@
 import random
 from abc import ABC, abstractmethod
 
-class Generator(ABC):
+class GeneratorBase(ABC):
     def __init__(self, values, seed=0):
         self._v = values
         self._seed = seed
@@ -10,7 +10,7 @@ class Generator(ABC):
     def __call__(self):
         pass
 
-class RandomGenerator(Generator):
+class RandomGenerator(GeneratorBase):
     def __init__(self, values, seed=0):
         self._rng = random.Random(seed)
         super(RandomGenerator, self).__init__(values=values, seed=seed)
@@ -18,7 +18,7 @@ class RandomGenerator(Generator):
     def __call__(self):
         return self._rng.choice(self._v)
 
-class RoundRobinGenerator(Generator):
+class RoundRobinGenerator(GeneratorBase):
     def __init__(self, values, seed=0):
         self._offset = 0
         super(RoundRobinGenerator, self).__init__(values=values, seed=seed)

@@ -1,6 +1,6 @@
 from typing import List, Dict, Optional
 from pydantic import BaseModel, validator
-from generator import RandomGenerator as DefaultGenerator
+from generators import RandomGenerator as DefaultGenerator
 
 class Examples(BaseModel):
     positive: List[str] = []

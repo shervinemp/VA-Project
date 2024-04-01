@@ -21,18 +21,18 @@ pub { ent(Chara): other }.receive({ ent(Item): item })
 @ joe.move_to(obj.x, obj.y)
 pub { ent(Chara): joe }.in_range({ ent(WorldObj): obj })
 
-@ [ joe.move_right(! joe.x_right < obj.x_left !) &
-    joe.move_left(! joe.x_left > obj.x_right !) & 
-    joe.move_down(! joe.y_bottom < obj.y_top !) &
-    joe.move_up(! joe.y_top > obj.y_bottom !) ] 
+@ [ joe.move_right( !joe.x_right < obj.x_left ) &
+    joe.move_left( !joe.x_left > obj.x_right ) & 
+    joe.move_down( !joe.y_bottom < obj.y_top ) &
+    joe.move_up( !joe.y_top > obj.y_bottom ) ] 
 pub { ent(Chara): joe }.move_to({ ent(WorldObj): obj }) 
 -> [ joe.x & 
      joe.y ]
 
-@ [ joe.step_right(! joe.x < x !) &
-    joe.step_left(! joe.x > x !) & 
-    joe.step_down(! joe.y < y !) &
-    joe.step_up(! joe.y > y !) ] 
+@ [ joe.step_right( !joe.x < x ) &
+    joe.step_left( !joe.x > x ) & 
+    joe.step_down( !joe.y < y ) &
+    joe.step_up( !joe.y > y ) ] 
 pub { ent(Chara): joe }.move({ var(Float): x }, { var(Float): y }) 
 -> [ joe.x & 
      joe.y ]
