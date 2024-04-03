@@ -1,47 +1,93 @@
-from typing import Generic, TypeVar, Optional
+from typing import Generic, TypeVar, Optional, Union, Any
 
 
 T1 = TypeVar('T1')
 class Ref(Generic[T1]):
-    def __init__(self, id_: str, val: Optional[T1]=None):
-        self._id = id_
-        self._val = val
+    def __init__(self, value: Optional[T1]=None):
+        self._value = value
 
-    def assign(val: T1) -> None:
-        self._val = val
+    def assign(self, value: T1) -> None:
+        self._value = value
 
     @property
-    def free(self) -> bool:
-        return self._obj is None
+    def is_empty(self) -> bool:
+        return self._value is None
+
+    def deref(self) -> Optional[T1]:
+        return self._value
 
     def __call__(self) -> T1:
-        return self._val
+        return self.deref()
 
     def __repr__(self):
-        return f'Ref[{type(self._val).__name__}]({self._val})'
+        return f'Ref[{type(self._value).__name__}]({self._value})'
+
+
+class ConstRef(Ref):
+    def assign(self, value: T1) -> Any:
+        assert self.is_free
+        return super(ConstRef, self).assign(value)
+
 
 
 T2 = TypeVar('T2')
-class RefManager(Generic[T2]):
+class RefDict(Generic[T2]):
     def __init__(self):
-        self._items: dict[str, Ref[T2]] = {}
+        self._refs: dict[str, Ref[T2]] = {}
 
-    def register_ref(self, ref: Ref[T2]) -> str:
-        self._items[ref.id_] = ref
-        return ref.id_
+    def __getitem__(self, key: str):
+        return self._refs[key]
 
-    def register_item(self, id_: str, item: T2) -> None:
-        if id_ in self._items:
-            ref_: Ref[T2] = self._items[id_]
+    def __setitem__(self, key: str, value: Optional[Union[Ref[T2], T2]]=None):
+        if key in self._refs:
+            self._refs.assign(value)
         else:
-            ref_: Ref[T2] = Ref(id_=id_, val=item)
-        if ref_.free:
-            ref_.assign(entity=entity)
-        elif not item is ref_():
-            raise KeyError()
+            self._refs[key] = value if isinstance(value, Ref) else Ref(value)
 
-    def remove(self, id_: str) -> None:
-        del self._items[id_]
+    def __delitem__(self, key):
+        del self._refs[key]
 
-    def validate(self) -> bool:
-        return not any(e.free for e in self._items.values())
+    def __len__(self):
+        return len(self._refs)
+
+    def __iter__(self):
+        return iter(self._refs)
+
+    def __str__(self):
+        return str(self._refs)
+
+    def clear(self):
+        self._refs.clear()
+
+    def get(self, key, default=None):
+        return self._refs.get(key, lambda: default).deref()
+
+    def items(self):
+        return map((lambda k, v: k, v.deref()),
+                   self._refs.items())
+
+    def keys(self):
+        return self._refs.keys()
+
+    def values(self):
+        return map((lambda v: v.deref()),
+                   self._refs.values())
+
+    def pop(self, key, default=None):
+        return self._refs.pop(key, default)
+
+    def popitem(self):
+        return self._refs.popitem()
+
+    def update(self, *args, **kwargs):
+        # self._refs.update(*args, **kwargs)
+        raise NotImplementedError()
+
+    def setdefault(self, key, default=None):
+        return self._refs.setdefault(key, default)
+    
+    def to_dict(self):
+        return {k: v.deref() for k, v in self._refs.items()}
+
+    def dangling(self):
+        return any(e.is_empty for e in self._refs.values())

@@ -6,7 +6,7 @@ definition    	: conditionBlock? visibility actionBlock effectBlock? metaData? ;
 
 conditionBlock	: '@' logicExpr ;
 visibility	: 'pub' | 'priv' ;
-actionBlock	: entityGroup '.' method argsWrapper ;
+actionBlock	: entityDef '.' method argsWrapper ;
 effectBlock	: '->' logicExpr ;
 metaData	: '{' metaBlock? '}' ;
 
@@ -20,9 +20,9 @@ logicMod	: '~' ;
 comparison	: compareOp attrib ;
 compareOp	: '!=' | '<' | '<=' | '>' | '>=' | '==' ;
 
-entityRef	: entity | entityGroup ;
+entityRef	: id | entityDef ;
 entityDef	: '{' entityDecl ('|' logicExpr)? '}' ;
-entityDecl	: entityType ':' entity ;
+entityDecl	: entityType ':' id ;
 entityType      : entityClass | entityVar ;
 entityClass     : 'ent' '(' IDENTIFIER ')' ;
 entityVar	: 'var' '(' dataType ')' ;
@@ -32,8 +32,7 @@ attrib		: attribMod? entityRef methodCall? ;
 methodCall  : '.' method argsWrapper? ;
 attribMod	: '$' | '!' ;
 argsWrapper	: '(' argsList ')' ;
-argsList	: argument (',' argument)* ;
-argument	: logicExpr ;
+argsList	: attrib (',' attrib)* ;
 
 metaBlock	: metaEntry (',' metaEntry)* ','? ;
 metaEntry	: string ':' value ;
@@ -43,7 +42,7 @@ number		: NUMBER ;
 string		: STRING ;
 bool		: 'True' | 'False' ;
 
-entity		: IDENTIFIER ;
+id			: IDENTIFIER ;
 method		: IDENTIFIER ;
 
 // Lexer rules

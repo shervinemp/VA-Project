@@ -89,13 +89,13 @@ class SCLangVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by SCLangParser#entityGroup.
-    def visitEntityGroup(self, ctx:SCLangParser.EntityGroupContext):
+    # Visit a parse tree produced by SCLangParser#entityDef.
+    def visitEntityDef(self, ctx:SCLangParser.EntityDefContext):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by SCLangParser#entityDef.
-    def visitEntityDef(self, ctx:SCLangParser.EntityDefContext):
+    # Visit a parse tree produced by SCLangParser#entityDecl.
+    def visitEntityDecl(self, ctx:SCLangParser.EntityDeclContext):
         return self.visitChildren(ctx)
 
 
@@ -179,8 +179,8 @@ class SCLangVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by SCLangParser#entity.
-    def visitEntity(self, ctx:SCLangParser.EntityContext):
+    # Visit a parse tree produced by SCLangParser#id.
+    def visitId(self, ctx:SCLangParser.IdContext):
         return self.visitChildren(ctx)
 
 
