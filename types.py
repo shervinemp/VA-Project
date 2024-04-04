@@ -8,5 +8,7 @@ LogicModifier = Enum('LogicModifier', ['NOT'])
 LogicOperator = Enum('LogicOperator', ['OR', 'AND'])
 AttribModifier = Enum('AttribModifier', ['LIVE', 'PREV'])
 
+
+LogicOpType = Union[LogicModifier, LogicOperator]
 ValueType = Union[int, float, bool, str]
 MetaDataType = dict[str, ValueType]
