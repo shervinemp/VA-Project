@@ -29,11 +29,10 @@ class ConstRef(Ref):
         return super(ConstRef, self).assign(value)
 
 
-
 T2 = TypeVar('T2')
 class RefDict(Generic[T2]):
-    def __init__(self):
-        self._refs: dict[str, Ref[T2]] = {}
+    def __init__(self, *args, **kwargs):
+        self._refs: dict[str, Ref[T2]] = {k: (v if isinstance(v, Ref) else Ref(v)) for k, v in dict(*args, **kwargs).items()}
 
     def __getitem__(self, key: str):
         return self._refs[key]
